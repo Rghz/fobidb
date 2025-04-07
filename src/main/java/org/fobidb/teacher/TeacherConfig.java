@@ -13,7 +13,7 @@ import java.util.List;
 public class TeacherConfig {
 
     @Bean // Diese Annotation sagt Spring, dass die Methode commandLineRunner ein Bean ist, welches beim Start der Anwendung ausgeführt werden soll.
-    CommandLineRunner commandLineRunner(TeacherRepository repository) { //CommandLineRunnder: Funktionales Interface von Spring Boot. Es erlaubt die Ausführung von Code nach dem Start der Anwendung. Hier wird der übergebene Code also ausgeführt, sobald die Anwendung vollständig gestartet ist.
+    CommandLineRunner commandLineRunner_teach(TeacherRepository repository) { //CommandLineRunnder: Funktionales Interface von Spring Boot. Es erlaubt die Ausführung von Code nach dem Start der Anwendung. Hier wird der übergebene Code also ausgeführt, sobald die Anwendung vollständig gestartet ist.
         return args -> { // Lambda-Ausdruck = kompakte Art, das Interface zu implementieren.
             // Prüfen, ob die Datenbank bereits Einträge enthält
             if (repository.count() == 0) {
