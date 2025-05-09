@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Fachbereiche anzeigen</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<h1>Liste der Fachbereiche</h1>
+<table id="departmentsTable">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Bezeichnung</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Fachbereich-Daten werden hier eingefügt -->
+    </tbody>
+</table>
+
+<script>
+    function loadDepartments() {
+        fetch('http://localhost:8080/api/v1/department')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('departmentsTable').getElementsByTagName('tbody')[0];
+                tableBody.innerHTML = ''; // Vorhandene Zeilen löschen
+                data.forEach(department => {
+                    const row = tableBody.insertRow();
+                    row.insertCell(0).textContent = department.id;
+                    row.insertCell(1).textContent = department.bezeichnung;
+                });
+            })
+            .catch(error => console.error('Fehler:', error));
+    }
+
+    // Lehrer laden, wenn die Seite geladen wird
+    window.onload = loadDepartments();
+</script>
+</body>
+</html>
