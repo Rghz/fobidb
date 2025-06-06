@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Fortbildung anzeigen</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<h1>Liste der Fortbildungen</h1>
+<table id="eventsTable">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Titel</th>
+        <th>Dauer</th>
+        <th>Datum</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Fortbildung-Daten werden hier eingefügt -->
+    </tbody>
+</table>
+
+<script>
+    function loadEvents() {
+        fetch('http://localhost:8080/api/v1/event')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('eventsTable').getElementsByTagName('tbody')[0];
+                tableBody.innerHTML = ''; // Vorhandene Zeilen löschen
+                data.forEach(event => {
+                    const row = tableBody.insertRow();
+                    row.insertCell(0).textContent = event.id;
+                    row.insertCell(1).textContent = event.titel;
+                    row.insertCell(2).textContent = event.duration;
+                    row.insertCell(3).textContent = event.date;
+                });
+            })
+            .catch(error => console.error('Fehler:', error));
+    }
+
+    // Lehrer laden, wenn die Seite geladen wird
+    window.onload = loadEvents;
+</script>
+</body>
+</html>
